@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, DateField, EmailField
 
 from wtforms import validators 
 
-class UserForm(Form):
+class UserForm2(Form):
     # lo que aparece en el html 
     id = IntegerField("Matricula", [
         validators.DataRequired(message="El campo es requerido"),
@@ -14,10 +14,10 @@ class UserForm(Form):
         validators.DataRequired(message="El campo es requerido"), 
     ])
     
-    apaterno = StringField("aPaterno",[
+    apaterno = StringField("Apellido Paterno",[
         validators.DataRequired(message="El campo es requerido")
     ])
-    email = EmailField("emai;", [
+    email = EmailField("Email", [
         validators.DataRequired(message="El campo es requerido")
     ])
     created_date = DateField("created_date", [
