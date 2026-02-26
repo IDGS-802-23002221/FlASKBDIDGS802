@@ -4,29 +4,15 @@
 
 <form class="max-w-sm mx-auto space-y-4" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-
+{{ form.id(style="display:none") }}
 
 
 <div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
 
 
     
-    
-    <div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-    {{nombre}}    
-    </div>
-    <div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-    {{apaterno}}    
-    </div>
-    <div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-    {{email}}    
-    </div>
+
 </div>
-
-
-    <button type="submit" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
-        Guardar Registro
-    </button>
     <a href="/" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
         Volver al Inicio
     </a>

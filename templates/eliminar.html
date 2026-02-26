@@ -3,8 +3,9 @@
 {% import "_macros.html" as macros %}
 
 <form class="max-w-sm mx-auto space-y-4" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     {{ form.id(style="display:none") }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
     <div>
         
         {{ macros.campoNuevo(
@@ -31,7 +32,7 @@
     </div>
 
     <button type="submit" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
-        Guardar Registro
+        Eliminar
     </button>
     <a href="/" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
        Volver al Inicio

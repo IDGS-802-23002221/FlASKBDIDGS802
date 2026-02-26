@@ -6,6 +6,7 @@
     <table class="w-full text-sm text-left rtl:text-right text-body">
         <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
             <tr>
+                
                 <th scope="col" class="px-6 py-3 font-medium">
                     Nombre
                 </th>
@@ -39,7 +40,7 @@
                     <a href="/detalles?id={{ alumn.id }}" class="text-green-600 hover:underline">Ver</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="/?id={{ alumn.id }}" class="text-green-600 hover:underline">Eliminar</a>
+                    <a href="/eliminar?id={{ alumn.id }}" class="text-green-600 hover:underline">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

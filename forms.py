@@ -7,7 +7,7 @@ class UserForm2(Form):
     # lo que aparece en el html 
     id = IntegerField("Matricula", [
         validators.DataRequired(message="El campo es requerido"),
-        validators.NumberRange(min=100, max=1000, message="ingrese un valor valido")
+        validators.NumberRange(min=1, max=1000, message="ingrese un valor valido")
     ])
 
     nombre = StringField("Nombre", [
