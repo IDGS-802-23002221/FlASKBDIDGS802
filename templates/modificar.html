@@ -5,6 +5,7 @@
 <form class="max-w-sm mx-auto space-y-4" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     {{ form.id(style="display:none") }}
+    
     <div>
         
         {{ macros.campoNuevo(
@@ -16,9 +17,17 @@
 
      <div>
         {{ macros.campoNuevo(
-            field=form.apaterno, 
+            field=form.apellidos, 
             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs", 
             placeholder="Escribe tu apellido"
+        ) }}
+    </div>
+
+     <div>
+        {{ macros.campoNuevo(
+            field=form.telefono, 
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs", 
+            placeholder="Escribe tu telefono"
         ) }}
     </div>
 

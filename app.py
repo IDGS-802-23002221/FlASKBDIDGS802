@@ -12,8 +12,9 @@ from models import Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
-csrf=CSRFProtect()
+
 db.init_app(app)
+csrf=CSRFProtect(app)
 migrate=Migrate(app,db)
 
 @app.errorhandler(404)
@@ -37,7 +38,8 @@ def Alumnos_vista():
 	if request.method=='POST':
 
 		alum=Alumnos(nombre=create_from.nombre.data,
-			   	     apaterno=create_from.apaterno.data,
+			   	     apellidos=create_from.apellidos.data,
+					 telefono=create_from.telefono.data,
 					 email=create_from.email.data
 					  )
 		db.session.add(alum)
@@ -48,7 +50,8 @@ def Alumnos_vista():
 @app.route("/detalles",methods=['GET','POST'])
 def detalles():
 	nombre = ""
-	apaterno = "" 
+	apellidos = "" 
+	telefono = ""
 	email = ""
 	create_from=forms.UserForm2(request.form)
 	if request.method=='GET':
@@ -56,10 +59,11 @@ def detalles():
 		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		id =request.args.get('id')
 		nombre=alum1.nombre
-		apaterno=alum1.apaterno
+		apellidos=alum1.apellidos
+		telefono=alum1.telefono
 		email=alum1.email
 
-	return render_template("detalles.html",form=create_from,nombre=nombre,apaterno=apaterno,email=email )
+	return render_template("detalles.html",form=create_from,nombre=nombre,apellidos=apellidos,telefono=telefono,email=email )
 
 
 @app.route("/modificar",methods=['GET','POST'])
@@ -70,7 +74,8 @@ def modificar():
 		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		create_from.id.data=request.args.get('id')
 		create_from.nombre.data=alum1.nombre
-		create_from.apaterno.data=alum1.apaterno
+		create_from.apellidos.data=alum1.apellidos
+		create_from.telefono.data=alum1.telefono
 		create_from.email.data=alum1.email
 
 	if request.method=='POST':
@@ -78,7 +83,8 @@ def modificar():
 		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		alum1.id = id 
 		alum1.nombre = str.rstrip(create_from.nombre.data) 
-		alum1.apaterno = create_from.apaterno.data
+		alum1.apellidos = create_from.apellidos.data
+		alum1.telefono = create_from.telefono.data
 		alum1.email = create_from.email.data 
 		db.session.add(alum1)
 		db.session.commit()
@@ -94,7 +100,8 @@ def eliminar():
 		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
 		create_from.id.data=request.args.get('id')
 		create_from.nombre.data=alum1.nombre
-		create_from.apaterno.data=alum1.apaterno
+		create_from.apellidos.data=alum1.apellidos
+		create_from.telefono.data=alum1.telefono
 		create_from.email.data=alum1.email
 	if request.method=='POST':
 		id =create_from.id.data
