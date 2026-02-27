@@ -6,12 +6,14 @@ from flask import g
 import forms
 from sqlalchemy import text
 from flask_migrate import Migrate
-
+from maestros.routes import maestros_bp
 from models import db 
 from models import Alumnos
 
+
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros_bp)
 
 db.init_app(app)
 csrf=CSRFProtect(app)
@@ -30,7 +32,6 @@ def index():
 	#tem = Alumnos.query('select * from alumnos')
 	alumno = Alumnos.query.all()
 	return render_template("index.html", form=create_form,alumno=alumno)
-
 
 @app.route("/Alumnos",methods=['GET','POST'])
 def Alumnos_vista():
@@ -64,7 +65,6 @@ def detalles():
 		email=alum1.email
 
 	return render_template("detalles.html",form=create_from,nombre=nombre,apellidos=apellidos,telefono=telefono,email=email )
-
 
 @app.route("/modificar",methods=['GET','POST'])
 def modificar():

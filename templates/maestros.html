@@ -1,0 +1,64 @@
+{% extends "layout.html" %} 
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+        <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+            <tr>
+                
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Matricula
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Nombre
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Apellidos
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Especialidad
+                </th>
+                <th scope="col" class="px-6 py-3 font-medium">
+                    Email
+                </th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for m in mae %}
+            <tr class="bg-neutral-primary border-b border-default">
+
+                <td class="px-6 py-4">
+                    {{ m.matricula }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ m.nombre }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ m.apellidos }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ m.especialidad }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ m.email }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <a href="/modificarM?matricula={{ m.matricula }}" class="text-green-600 hover:underline">Editar</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <a href="/detallesM?matricula={{ m.matricula }}" class="text-green-600 hover:underline">Ver</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <a href="/eliminarM?matricula={{ m.matricula }}" class="text-green-600 hover:underline">Eliminar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        
+    </table>
+</div>
+{% endblock %}
