@@ -4,11 +4,11 @@
 
 <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
     <table class="w-full text-sm text-left rtl:text-right text-body">
-        <p class="text-xs text-gray-400 uppercase mb-1">Modulo de alumnos</p>
         <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+            <p class="text-xs text-gray-400 uppercase mb-1">Modulo Cursos</p>
             <td class="px-6 py-4 text-center">
                 
-                    <a href="/insertarA" class="text-green-600 hover:underline">Agregar</a>
+                    <a href="/insertarC" class="text-green-600 hover:underline">Agregar Curso</a>
                 </td>
                
             <tr>
@@ -17,13 +17,10 @@
                     Nombre
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Apellidos
+                    Descripción
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    telefono
-                </th>
-                <th scope="col" class="px-6 py-3 font-medium">
-                    Email
+                    Maestro
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
                     Acciones
@@ -33,29 +30,30 @@
         </thead>
         <tbody>
             
-            {% for alumn in alumno %}
+            {% for cur in curso %}
             <tr class="bg-neutral-primary border-b border-default">
 
                 <td class="px-6 py-4">
-                    {{ alumn.nombre }}
+                    {{ cur.nombre }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ alumn.apellidos }}
+                    {{ cur.descripcion }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ alumn.telefono }}
+                    {{ cur.maestro_id }}
                 </td>
-                <td class="px-6 py-4">
-                    {{ alumn.email }}
-                </td>
-                <td class="px-6 py-4 text-center">
-                    <a href="/modificarA?id={{ alumn.id }}" class="text-green-600 hover:underline">Editar</a>
                 
                 <td class="px-6 py-4 text-center">
-                    <a href="/detalles?id={{ alumn.id }}" class="text-green-600 hover:underline">Ver</a>
+                    <a href="/modificarC?id={{ cur.id }}" class="text-green-600 hover:underline">Editar</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="/eliminar?id={{ alumn.id }}" class="text-green-600 hover:underline">Eliminar</a>
+                    <a href="/detallesC?id={{ cur.id }}" class="text-green-600 hover:underline">Detalles</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <a href="{{url_for('inscripciones.ins_A',id= cur.id )}}" class="text-green-600 hover:underline">Inscribir alumnos</a>
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <a href="/eliminarC?id={{ cur.id }}" class="text-green-600 hover:underline">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}

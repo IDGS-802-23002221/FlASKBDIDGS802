@@ -3,7 +3,6 @@
 {% import "_macros.html" as macros %}
 
 <form class="max-w-sm mx-auto space-y-4" method="POST">
-    {{ form.id(style="display:none") }}
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
     <div>
@@ -11,31 +10,37 @@
         {{ macros.campoNuevo(
             field=form.nombre, 
             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs", 
-            placeholder="Escribe tu nombre"
+            placeholder="Escribe el nombre del curso"
         ) }}
     </div>
 
      <div>
         {{ macros.campoNuevo(
-            field=form.apellidos, 
+            field=form.descripcion, 
             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs", 
-            placeholder="Escribe tu apellido"
+            placeholder="Escribe tus apellidos"
         ) }}
     </div>
 
      <div>
         {{ macros.campoNuevo(
-            field=form.email, 
+            field=form.maestro_id, 
             class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs", 
-            placeholder="Escribe tu email"
+            placeholder="Escribe tu telefono"
         ) }}
     </div>
+
+    {% if error %}                      {# 👈 aquí, antes del botón #}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-base">
+        {{ error }}
+    </div>
+    {% endif %}
 
     <button type="submit" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
-        Eliminar
+        Guardar curso
     </button>
-    <a href="{{url_for('alumnos.Alumnos_vista')}}" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
-       Volver al Inicio
+    <a href="{{url_for('cursos.cursos_vista')}}" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+        Cancelar
     </a>
 </form>
 {% endblock %}

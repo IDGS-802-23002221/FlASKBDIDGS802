@@ -1,0 +1,34 @@
+{% extends "layout.html" %} 
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<form class="max-w-sm mx-auto space-y-4" method="POST" action="{{ url_for('inscripciones.ins_A')}}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    <input type="hidden" name="curso_id" value="{{ form.curso_id.data }}"/>  
+
+
+    <div>
+        <p class="text-xs text-gray-400 uppercase mb-1">Curso</p>
+        <p class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base block w-full px-2.5 py-2 shadow-xs">{{ nombre }}</p>
+    </div>
+
+    <div>
+        <p class="text-xs text-gray-400 uppercase mb-1">Alumno</p>
+        {{ form.alumno_id(class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base block w-full px-2.5 py-2 shadow-xs") | safe }}
+    </div>
+
+    {% if error %}
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-base">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <button type="submit" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+        Guardar Registro
+    </button>
+    <a href="{{url_for('cursos.cursos_vista')}}" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+        Volver al Inicio
+    </a>
+</form>
+
+{% endblock %}

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from models import db, Maestros 
+from models import db, Maestros, Curso
 import forms
 
 maestros_bp=Blueprint('maestros',__name__)
@@ -26,7 +26,7 @@ def insertarM():
 					  )
 		db.session.add(mae)
 		db.session.commit()
-		return redirect(url_for('maestros.insertarM'))
+		return redirect(url_for('maestros.maestros_index'))
 	return render_template("insertarM.html",form=create_fromM)
 
 #modificar
@@ -52,7 +52,7 @@ def modificarM():
 		mae1.email = create_fromM.email.data 
 		db.session.add(mae1)
 		db.session.commit()
-		return redirect(url_for('maestros.insertarM'))
+		return redirect(url_for('maestros.maestros_index'))
 
 	return render_template("modificarM.html",form=create_fromM )
 
@@ -63,6 +63,7 @@ def detalles():
 	apellidos = "" 
 	especialidad = ""
 	email = ""
+
 	create_fromM=forms.UserFormM(request.form)
 	if request.method=='GET':
 		matricula =request.args.get('matricula') 
@@ -73,7 +74,7 @@ def detalles():
 		especialidad=mae1.especialidad
 		email=mae1.email
 
-	return render_template("detallesM.html",form=create_fromM,nombre=nombre,apellidos=apellidos,especialidad=especialidad,email=email )
+	return render_template("detallesM.html",form=create_fromM,nombre=nombre,apellidos=apellidos,especialidad=especialidad,email=email, mae1=mae1 )
 
 
 #eliminar
@@ -90,10 +91,11 @@ def eliminarM():
 		create_fromM.email.data=mae1.email
 	if request.method=='POST':
 		matricula = create_fromM.matricula.data
-		mae1 = Maestros.query.get(matricula)
+		mae1 = Maestros.query.get('matricula')
+		mae1 = Curso.query.get(id)
 		db.session.delete(mae1)
 		db.session.commit()
-		return redirect(url_for('index'))
+		return redirect(url_for('maestros.maestros_index'))
 
 	return render_template("eliminarM.html",form=create_fromM)
 

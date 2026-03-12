@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for 
-from flask import flash
+from flask import Flask, render_template, request
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
-from flask import g
 import forms
-from sqlalchemy import text
 from flask_migrate import Migrate
 from maestros.routes import maestros_bp
+from alumnos.routesA import alumnos_bp
+from cursos.routesC import cursos_bp
+from inscripciones.routesI import insc_bp
 from models import db 
 from models import Alumnos
 
@@ -14,6 +14,9 @@ from models import Alumnos
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 app.register_blueprint(maestros_bp)
+app.register_blueprint(alumnos_bp)
+app.register_blueprint(cursos_bp)
+app.register_blueprint(insc_bp)
 
 db.init_app(app)
 csrf=CSRFProtect(app)
@@ -27,91 +30,12 @@ def page_not_found(e):
 @app.route("/index")
 
 def index():
-	
 	create_form=forms.UserForm2(request.form)
 	#tem = Alumnos.query('select * from alumnos')
 	alumno = Alumnos.query.all()
 	return render_template("index.html", form=create_form,alumno=alumno)
 
-@app.route("/Alumnos",methods=['GET','POST'])
-def Alumnos_vista():
-	create_from=forms.UserForm2(request.form)
-	if request.method=='POST':
-
-		alum=Alumnos(nombre=create_from.nombre.data,
-			   	     apellidos=create_from.apellidos.data,
-					 telefono=create_from.telefono.data,
-					 email=create_from.email.data
-					  )
-		db.session.add(alum)
-		db.session.commit()
-		return redirect(url_for('index'))
-	return render_template("Alumnos.html",form=create_from)
-
-@app.route("/detalles",methods=['GET','POST'])
-def detalles():
-	nombre = ""
-	apellidos = "" 
-	telefono = ""
-	email = ""
-	create_from=forms.UserForm2(request.form)
-	if request.method=='GET':
-		id =request.args.get('id') 
-		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-		id =request.args.get('id')
-		nombre=alum1.nombre
-		apellidos=alum1.apellidos
-		telefono=alum1.telefono
-		email=alum1.email
-
-	return render_template("detalles.html",form=create_from,nombre=nombre,apellidos=apellidos,telefono=telefono,email=email )
-
-@app.route("/modificar",methods=['GET','POST'])
-def modificar():
-	create_from=forms.UserForm2(request.form)
-	if request.method=='GET':
-		id =request.args.get('id') 
-		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-		create_from.id.data=request.args.get('id')
-		create_from.nombre.data=alum1.nombre
-		create_from.apellidos.data=alum1.apellidos
-		create_from.telefono.data=alum1.telefono
-		create_from.email.data=alum1.email
-
-	if request.method=='POST':
-		id =create_from.id.data
-		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-		alum1.id = id 
-		alum1.nombre = str.rstrip(create_from.nombre.data) 
-		alum1.apellidos = create_from.apellidos.data
-		alum1.telefono = create_from.telefono.data
-		alum1.email = create_from.email.data 
-		db.session.add(alum1)
-		db.session.commit()
-		return redirect(url_for('index'))
-
-	return render_template("modificar.html",form=create_from )
-
-@app.route("/eliminar",methods=['GET','POST'])
-def eliminar():
-	create_from=forms.UserForm2(request.form)
-	if request.method=='GET':
-		id =request.args.get('id') 
-		alum1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-		create_from.id.data=request.args.get('id')
-		create_from.nombre.data=alum1.nombre
-		create_from.apellidos.data=alum1.apellidos
-		create_from.telefono.data=alum1.telefono
-		create_from.email.data=alum1.email
-	if request.method=='POST':
-		id =create_from.id.data
-		alum1 = Alumnos.query.get(id)
-		db.session.delete(alum1)
-		db.session.commit()
-		return redirect(url_for('index'))
-
-	return render_template("eliminar.html",form=create_from )
-
+	
 
 if __name__ == '__main__':
 	

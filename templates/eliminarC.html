@@ -1,0 +1,36 @@
+{% extends "layout.html" %} 
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<form class="max-w-sm mx-auto space-y-4" method="POST">
+    {{ form.id(style="display:none") }}
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+        <div>
+        {{ macros.campoNuevo(
+            field=form.nombre, 
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs")
+        }}
+    </div>
+     <div>
+        {{ macros.campoNuevo(
+            field=form.descripcion, 
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs"
+        ) }}
+    </div>
+
+     <div>
+        {{ macros.campoNuevo(
+            field=form.maestro_id, 
+            class="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-2.5 py-2 shadow-xs"
+        ) }}
+    </div>
+     
+    <button type="submit" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+        Eliminar
+    </button>
+    <a href="{{url_for('cursos.cursos_vista')}}" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+       Volver a cursos
+    </a>
+</form>
+{% endblock %}

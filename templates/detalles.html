@@ -1,27 +1,45 @@
-{% extends "layout.html" %} 
+{% extends "layout.html" %}
 {% block container %}
-{% import "_macros.html" as macros %}
 
-<form class="max-w-sm mx-auto space-y-4" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    {{ form.id(style="display:none") }}
+<div class="max-w-lg mx-auto space-y-4">
 
+    <div class="bg-neutral-primary-soft border border-default rounded-base shadow-xs p-6">
+        <p class="text-xs text-gray-400 uppercase mb-1">Nombre</p>
+        <p class="text-heading font-semibold">{{ alumno.nombre }} {{ alumno.apellidos }}</p>
+    </div>
 
-<div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-        {{nombre }}
-</div>
-<div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-        {{apellidos }}
-</div>
-<div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-        {{telefono}}
-</div>
-<div class="bg-neutral-primary-soft block max-w-sm p-6 border border-default rounded-base shadow-xs">
-        {{email}}
-</div>
+    <div class="bg-neutral-primary-soft border border-default rounded-base shadow-xs p-6">
+        <p class="text-xs text-gray-400 uppercase mb-1">Teléfono</p>
+        <p class="text-body">{{ alumno.telefono }}</p>
+    </div>
 
-    <a href="/" class="w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
-        Volver al Inicio
+    <div class="bg-neutral-primary-soft border border-default rounded-base shadow-xs p-6">
+        <p class="text-xs text-gray-400 uppercase mb-1">Email</p>
+        <p class="text-body">{{ alumno.email }}</p>
+    </div>
+
+    <div class="bg-neutral-primary-soft border border-default rounded-base shadow-xs p-6">
+        <p class="text-xs text-gray-400 uppercase mb-1">Cursos inscritos</p>
+        <p class="text-xs text-gray-400 mb-3">Total: {{ alumno.cursos|length }}</p>
+
+        {% if alumno.cursos %}
+            {% for curso in alumno.cursos %}  {# 👈 alumno.cursos, no alumno.curso #}
+            <div class="border border-default rounded-base p-4 mb-3">
+                <p class="font-semibold">{{ loop.index }}. {{ curso.nombre }}</p>
+                <p class="text-sm text-body">{{ curso.descripcion }}</p>
+                <p class="text-xs text-gray-400">Maestro: {{ curso.maestro.nombre }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-gray-400 text-sm">No está inscrito en ningún curso.</p>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('alumnos.Alumnos_vista') }}"
+       class="block text-center w-full text-white bg-brand hover:bg-brand-dark font-medium rounded-base text-sm px-5 py-2.5">
+        Volver
     </a>
-</form>
+
+</div>
+
 {% endblock %}
